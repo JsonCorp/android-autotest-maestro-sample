@@ -3,7 +3,7 @@
 ## 목표
 
 안드로이드 개발을 처음 접하는 독자도 따라 할 수 있도록, Maestro를 이용한 UI 자동화 테스트를 "아주 쉽게" 설명하는 2부작 시리즈.
-샘플 저장소: `android-autotest-maestro-sample` (단일 화면 카운터 앱 + Maestro 플로우 4개)
+샘플 저장소: `android-autotest-maestro-sample` (단일 화면 카운터 앱 + Maestro 플로우 5개)
 
 ## 1편 — AI가 테스트 스크립트를 작성하고, 실행하고, 보고서까지 만든다 (CLI 자동화)
 
@@ -23,17 +23,21 @@
 
 **상태**: 오늘 구현 완료. 코드/리포트/스크린샷은 저장소 루트 참고.
 
-## 2편 — Maestro Studio로 코드 없이 시각적으로 테스트 만들기 (추후 작성)
+## 2편 — Maestro Studio로 코드 없이 시각적으로 테스트 만들기
 
-**핵심 메시지**: "YAML을 몰라도 된다. 화면을 보면서 클릭 몇 번으로 테스트를 만든다."
+**핵심 메시지**: "YAML을 몰라도 된다. 화면을 보면서 자동완성만으로 테스트를 만든다."
 
-**목차 초안(가안)**
-1. Maestro Studio란 무엇인가 — `maestro studio` 실행하면 뜨는 화면
-2. 실시간 미러링 화면에서 요소를 클릭해 셀렉터 자동 추출
-3. 클릭 몇 번으로 플로우 조립하고 바로 실행/검증
-4. 1편에서 AI가 짠 스크립트와 비교 — 언제 AI에게 맡기고 언제 Studio로 직접 만들지
-5. 마무리 — 두 방식을 함께 쓰는 실전 워크플로우 제안
+**목차**
+1. Maestro Studio란 무엇인가 — CLI에서 분리된 별도 데스크톱 앱(`studio.maestro.dev`)
+2. 앱 실행 시 연결된 단말이 자동 인식되고 실시간 미러링되는 화면
+3. `id:` 자리에서 뜨는 자동완성 — 화면에 있는 모든 요소 id가 실시간으로 나열되고, 미러링 화면에 하이라이트까지 표시
+4. 그 자리에서 `Run Test`로 바로 실행/검증
+5. 1편에서 AI가 짠 스크립트와 비교 — 언제 AI에게 맡기고 언제 Studio로 직접 만들지, 실전에서는 함께 쓰는 방식 제안
 
-**준비물**: 1편과 동일 + Maestro Studio (Chrome 기반 UI)
+**준비물**: 1편과 동일 + Maestro Studio 데스크톱 앱
 
-**상태**: 계획만 수립됨, 실제 작성은 추후 진행.
+**상태**: 작성 완료. `docs/stage2-blog-post.md`, `screenshots/studio_*.png`, `.maestro/05_studio_demo.yaml` 참고.
+
+**진행 중 발견한 이슈**:
+- `maestro studio` CLI 명령은 더 이상 지원되지 않고 데스크톱 앱 설치가 필요함 (설치는 사용자가 직접 진행)
+- CLI(2.6.1)와 Studio 데스크톱 앱이 단말에 서로 다른 버전의 드라이버 앱(`dev.mobile.maestro`)을 설치하면서 `maestro test` 실행 시 "was not installed" 오류가 발생 → `--reinstall-driver` 옵션으로 해결

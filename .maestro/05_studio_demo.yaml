@@ -1,0 +1,10 @@
+appId: com.example.maestrosample
+name: Studio 데모 — Maestro Studio에서 클릭/자동완성만으로 조립한 플로우
+---
+- launchApp:
+    clearState: true
+- tapOn:
+    id: "btn_increment"
+- assertVisible:
+    id: "text_counter"
+    text: "1"
