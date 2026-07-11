@@ -2,8 +2,8 @@
 
 ## 목표
 
-안드로이드 개발을 처음 접하는 독자도 따라 할 수 있도록, Maestro를 이용한 UI 자동화 테스트를 "아주 쉽게" 설명하는 2부작 시리즈.
-샘플 저장소: `android-autotest-maestro-sample` (단일 화면 카운터 앱 + Maestro 플로우 5개)
+안드로이드 개발을 처음 접하는 독자도 따라 할 수 있도록, Maestro를 이용한 UI 자동화 테스트를 "아주 쉽게" 설명하는 3부작 시리즈.
+샘플 저장소: `android-autotest-maestro-sample` (단일 화면 카운터 앱 + Maestro 플로우 5개 + GitHub Actions CI)
 
 ## 1편 — AI가 테스트 스크립트를 작성하고, 실행하고, 보고서까지 만든다 (CLI 자동화)
 
@@ -41,3 +41,22 @@
 **진행 중 발견한 이슈**:
 - `maestro studio` CLI 명령은 더 이상 지원되지 않고 데스크톱 앱 설치가 필요함 (설치는 사용자가 직접 진행)
 - CLI(2.6.1)와 Studio 데스크톱 앱이 단말에 서로 다른 버전의 드라이버 앱(`dev.mobile.maestro`)을 설치하면서 `maestro test` 실행 시 "was not installed" 오류가 발생 → `--reinstall-driver` 옵션으로 해결
+
+## 3편 — GitHub Actions로 커밋마다 자동 실행하기
+
+**핵심 메시지**: "실행 버튼조차 누르지 않는다. 푸시하면 알아서 돌아간다."
+
+**목차**
+1. 왜 CI가 필요한가 (사람이 실행하는 한 "내 컴퓨터에선 됐는데"가 반복된다)
+2. 워크플로우 YAML 하나로 끝 — `reactivecircus/android-emulator-runner`로 실제 단말 없이 에뮬레이터 구동
+3. 처음 실행은 실패했다 — `gradlew` 실행 비트 누락(exit code 126) 트러블슈팅
+4. 수정 후 5분 만에 5개 플로우 전체 통과, 리포트를 Artifact로 보존
+5. 로컬(Windows)과 CI(Linux)의 서로 다른 함정 비교 (인코딩 vs 실행 권한)
+
+**준비물**: 1편과 동일한 저장소 + GitHub 저장소(공개), 별도 단말 불필요 (에뮬레이터 사용)
+
+**상태**: 작성 완료. `docs/stage3-blog-post.md`, `.github/workflows/maestro-test.yml` 참고. 실제 Actions 실행: [#1(실패)](https://github.com/JsonCorp/android-autotest-maestro-sample/actions/runs/29155524080), [#2(성공)](https://github.com/JsonCorp/android-autotest-maestro-sample/actions/runs/29155582282)
+
+**진행 중 발견한 이슈**:
+- `gradlew`가 `100644`(실행 불가) 권한으로 커밋되어 있어 리눅스 러너에서 `exit code 126`으로 즉시 실패 → `git update-index --chmod=+x gradlew`로 해결
+- Chrome 자동화 도구로 캡처한 스크린샷은 이 환경에서 로컬 파일로 저장할 수 없어, 3편은 스크린샷 대신 실제 API로 가져온 단계별 로그와 공개 저장소의 라이브 Actions 링크로 대체

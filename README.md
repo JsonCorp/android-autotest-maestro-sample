@@ -7,6 +7,7 @@ Maestro로 안드로이드 앱을 자동화 테스트하는 방법을 아주 쉽
 - 블로그 시리즈 계획: [`docs/blog-plan.md`](docs/blog-plan.md)
 - 1편 원고 (AI로 스크립트 작성 → CLI 자동화): [`docs/stage1-blog-post.md`](docs/stage1-blog-post.md)
 - 2편 원고 (Maestro Studio로 시각적으로 테스트 만들기): [`docs/stage2-blog-post.md`](docs/stage2-blog-post.md)
+- 3편 원고 (GitHub Actions로 커밋마다 자동 실행): [`docs/stage3-blog-post.md`](docs/stage3-blog-post.md)
 
 ## 빠른 시작
 
@@ -56,3 +57,7 @@ maestro test .maestro/01_increment.yaml
 ## Maestro Studio (2편)
 
 YAML을 직접 외워 쓰지 않고 **Maestro Studio** 데스크톱 앱으로 화면을 보면서 시각적으로 테스트를 만드는 방법은 [`docs/stage2-blog-post.md`](docs/stage2-blog-post.md)에서 다룹니다. `.maestro/05_studio_demo.yaml`이 Studio로 만든 결과물입니다.
+
+## CI (3편)
+
+`.github/workflows/maestro-test.yml`이 `main`에 푸시하거나 PR을 올릴 때마다 GitHub Actions에서 Android 에뮬레이터를 띄워 5개 플로우를 전부 실행하고, HTML 리포트를 Artifact로 남깁니다. 별도 단말 없이도 동작합니다. 자세한 내용과 트러블슈팅(실행 권한 비트 이슈)은 [`docs/stage3-blog-post.md`](docs/stage3-blog-post.md)에서 다룹니다.
