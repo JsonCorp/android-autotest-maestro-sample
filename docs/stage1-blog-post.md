@@ -207,3 +207,7 @@ Waiting for flows to complete...
 4. 4개 시나리오 모두 통과하는 것을 리포트로 확인했습니다.
 
 YAML 파일을 직접 짜는 게 어렵지 않다는 것도 확인했지만, 다음 편에서는 YAML조차 필요 없는 방법을 소개합니다. **Maestro Studio**를 이용하면 화면을 보면서 클릭 몇 번으로 테스트를 만들 수 있습니다. 코드를 전혀 몰라도 테스트 자동화를 시작할 수 있는 방법, 다음 글에서 이어가겠습니다.
+
+---
+
+**태그**: Android, Maestro, 안드로이드, UI자동화테스트, 모바일테스트자동화, AI코딩, Kotlin, JetpackCompose, adb, 테스트자동화, QA, CI/CD
