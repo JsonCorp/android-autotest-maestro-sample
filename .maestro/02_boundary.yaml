@@ -1,0 +1,16 @@
+appId: com.example.maestrosample
+name: 경계값 — 0에서 -1을 눌러도 음수로 내려가지 않는다
+---
+- launchApp:
+    stopApp: true
+
+- assertVisible:
+    id: "text_counter"
+    text: "0"
+
+- tapOn:
+    id: "btn_decrement"
+
+- assertVisible:
+    id: "text_counter"
+    text: "0"

@@ -1,0 +1,28 @@
+appId: com.example.maestrosample
+name: 달성 메시지 — 10에 도달하면 축하 메시지가 뜨고, 초기화하면 사라진다
+---
+- launchApp:
+    stopApp: true
+
+- assertNotVisible:
+    id: "text_milestone"
+
+- repeat:
+    times: 10
+    commands:
+      - tapOn:
+          id: "btn_increment"
+
+- assertVisible:
+    id: "text_counter"
+    text: "10"
+- assertVisible:
+    id: "text_milestone"
+
+- takeScreenshot: milestone_reached
+
+- tapOn:
+    id: "btn_reset"
+
+- assertNotVisible:
+    id: "text_milestone"

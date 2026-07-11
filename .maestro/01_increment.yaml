@@ -1,0 +1,19 @@
+appId: com.example.maestrosample
+name: 증가 — +1 버튼을 3번 누르면 3이 표시된다
+---
+- launchApp:
+    stopApp: true
+
+- assertVisible:
+    id: "text_counter"
+    text: "0"
+
+- repeat:
+    times: 3
+    commands:
+      - tapOn:
+          id: "btn_increment"
+
+- assertVisible:
+    id: "text_counter"
+    text: "3"

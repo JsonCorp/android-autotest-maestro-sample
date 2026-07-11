@@ -1,0 +1,14 @@
+*.iml
+.gradle/
+/local.properties
+.idea/
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+app/build/
+reports/
+
+# maestro takeScreenshot 커맨드가 저장소 루트(CWD)에 남기는 캡처 파일
+/milestone_reached.png

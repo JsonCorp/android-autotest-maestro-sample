@@ -1,0 +1,22 @@
+appId: com.example.maestrosample
+name: 초기화 — +1을 5번 누른 뒤 초기화하면 0으로 돌아간다
+---
+- launchApp:
+    stopApp: true
+
+- repeat:
+    times: 5
+    commands:
+      - tapOn:
+          id: "btn_increment"
+
+- assertVisible:
+    id: "text_counter"
+    text: "5"
+
+- tapOn:
+    id: "btn_reset"
+
+- assertVisible:
+    id: "text_counter"
+    text: "0"
