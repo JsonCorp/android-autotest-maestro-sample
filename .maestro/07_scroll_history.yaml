@@ -1,0 +1,22 @@
+appId: com.example.maestrosample
+name: 목록 스크롤 — 화면 밖에 있는 마지막 예시 기록까지 스크롤해서 찾는다
+---
+- runFlow: common/launch_clean.yaml
+
+- tapOn:
+    id: "btn_history"
+
+- extendedWaitUntil:
+    visible:
+      id: "list_history"
+    timeout: 5000
+
+# 첫 기록은 스크롤 없이 보인다
+- assertVisible:
+    text: "예시 기록 1"
+
+# 마지막 기록은 화면 밖 — 찾을 때까지 아래로 스크롤
+- scrollUntilVisible:
+    element:
+      text: "예시 기록 15"
+    direction: DOWN

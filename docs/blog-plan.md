@@ -2,8 +2,8 @@
 
 ## 목표
 
-안드로이드 개발을 처음 접하는 독자도 따라 할 수 있도록, Maestro를 이용한 UI 자동화 테스트를 "아주 쉽게" 설명하는 3부작 시리즈.
-샘플 저장소: `android-autotest-maestro-sample` (단일 화면 카운터 앱 + Maestro 플로우 5개 + GitHub Actions CI)
+안드로이드 개발을 처음 접하는 독자도 따라 할 수 있도록, Maestro를 이용한 UI 자동화 테스트를 "아주 쉽게" 설명하는 4부작 시리즈.
+샘플 저장소: `android-autotest-maestro-sample` (카운터 앱 2개 화면 + Maestro 플로우 8개 + GitHub Actions CI)
 
 ## 1편 — AI가 테스트 스크립트를 작성하고, 실행하고, 보고서까지 만든다 (CLI 자동화)
 
@@ -60,3 +60,21 @@
 **진행 중 발견한 이슈**:
 - `gradlew`가 `100644`(실행 불가) 권한으로 커밋되어 있어 리눅스 러너에서 `exit code 126`으로 즉시 실패 → `git update-index --chmod=+x gradlew`로 해결
 - Chrome 자동화 도구로 캡처한 스크린샷은 이 환경에서 로컬 파일로 저장할 수 없어, 3편은 스크린샷 대신 실제 API로 가져온 단계별 로그와 공개 저장소의 라이브 Actions 링크로 대체
+
+## 4편 — 화면이 늘어나면 테스트는 어떻게 달라지나 (실전 확장)
+
+**핵심 메시지**: "실제 앱은 화면이 하나가 아니다. 화면 전환·입력·리스트·비동기 로딩이 생기는 순간 필요한 Maestro 기법과, 테스트하기 좋은 앱을 만드는 개발 습관을 함께 다룬다."
+
+**목차**
+1. 카운터 앱에 '기록 화면' 추가 — 내비게이션 + 텍스트 입력 + 스크롤 목록 + 비동기 로딩(2초 스피너)
+2. 개발자 관점: 테스트 가능한 앱은 개발 단계에서 만들어진다 (testTag 컨벤션, `rememberSaveable` 상태 호이스팅)
+3. 새 Maestro 커맨드 실전 적용 — `inputText`/`hideKeyboard`(입력), `scrollUntilVisible`(스크롤 목록), `extendedWaitUntil`(비동기 대기), `back`(백스택 검증)
+4. 플로우가 늘어나면 중복이 생긴다 — `runFlow` 서브플로우로 공통화 (`common/` 하위 폴더는 디렉터리 실행에서 자동 제외)
+5. CI는 손도 안 댔다 — 3편에서 만든 파이프라인이 새 플로우까지 알아서 실행 (3편의 payoff)
+
+**준비물**: 1편과 동일 (연결된 Android 단말 또는 에뮬레이터, adb, Maestro CLI)
+
+**상태**: 작성 완료. `docs/stage4-blog-post.md`, `screenshots/stage4_*.png`, `.maestro/06~08` + `common/` 참고. 로컬 8/8 통과 확인.
+
+**진행 중 발견한 이슈**:
+- 플로우 `name:`에 큰따옴표(`"`)를 넣었더니, Maestro가 `--debug-output` 저장 시 플로우 이름을 파일명에 그대로 사용하면서 Windows 파일명 금지 문자에 걸려 `FileNotFoundException`으로 러너 전체가 중단됨 (뒤 플로우들 실행 안 됨) → 플로우 이름에서 따옴표 제거로 해결. 1편(cp949 인코딩), 3편(실행 비트)에 이은 Windows 특유의 함정

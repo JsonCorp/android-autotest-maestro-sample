@@ -9,12 +9,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
@@ -23,9 +20,11 @@ import androidx.compose.ui.unit.dp
 private const val MILESTONE = 10
 
 @Composable
-fun CounterScreen() {
-    var count by remember { mutableIntStateOf(0) }
-
+fun CounterScreen(
+    count: Int,
+    onCountChange: (Int) -> Unit,
+    onNavigateToHistory: () -> Unit,
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -60,19 +59,26 @@ fun CounterScreen() {
 
         Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
             Button(
-                onClick = { count = (count - 1).coerceAtLeast(0) },
+                onClick = { onCountChange((count - 1).coerceAtLeast(0)) },
                 modifier = Modifier.testTag("btn_decrement"),
             ) { Text("-1") }
 
             Button(
-                onClick = { count = 0 },
+                onClick = { onCountChange(0) },
                 modifier = Modifier.testTag("btn_reset"),
             ) { Text("초기화") }
 
             Button(
-                onClick = { count += 1 },
+                onClick = { onCountChange(count + 1) },
                 modifier = Modifier.testTag("btn_increment"),
             ) { Text("+1") }
         }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        OutlinedButton(
+            onClick = onNavigateToHistory,
+            modifier = Modifier.testTag("btn_history"),
+        ) { Text("기록") }
     }
 }

@@ -1,6 +1,6 @@
 # Maestro 테스트 플로우
 
-`com.example.maestrosample` (카운터 샘플 앱)을 검증하는 플로우 5개.
+`com.example.maestrosample` (카운터 샘플 앱)을 검증하는 플로우 8개 + 공통 서브플로우.
 
 | 파일 | 검증 내용 |
 |---|---|
@@ -9,6 +9,12 @@
 | `03_reset.yaml` | `+1` 5회 → `초기화` → `0` 복귀 확인 |
 | `04_milestone.yaml` | `+1` 10회 → 축하 메시지 노출 → `초기화` 후 메시지 사라짐 |
 | `05_studio_demo.yaml` | Maestro Studio에서 클릭/자동완성만으로 조립한 플로우 (2편 참고) |
+| `06_add_record.yaml` | 기록 화면에서 이름 입력 → 저장 → 목록 끝까지 스크롤해 확인 (4편) |
+| `07_scroll_history.yaml` | 화면 밖의 마지막 예시 기록까지 `scrollUntilVisible` (4편) |
+| `08_async_wait.yaml` | 로딩 스피너 → `extendedWaitUntil` → `back` 복귀 (4편) |
+| `common/launch_clean.yaml` | 앱 초기화+재실행 공통 서브플로우 — `runFlow`로만 참조 |
+
+`maestro test .maestro/`는 하위 폴더로 내려가지 않으므로 `common/`의 서브플로우는 단독 실행되지 않고, 각 플로우의 `runFlow`를 통해서만 실행된다.
 
 ## 사전 준비
 

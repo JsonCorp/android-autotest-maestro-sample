@@ -1,0 +1,35 @@
+appId: com.example.maestrosample
+name: 기록 저장 — 카운트 7에서 이름을 입력해 저장하면 목록 끝에 Maestro - 7이 남는다
+---
+- runFlow: common/launch_clean.yaml
+
+- repeat:
+    times: 7
+    commands:
+      - tapOn:
+          id: "btn_increment"
+
+- tapOn:
+    id: "btn_history"
+
+# 기록 화면은 로딩이 끝나야 목록이 나타난다 — 고정 sleep 대신 조건 대기
+- extendedWaitUntil:
+    visible:
+      id: "list_history"
+    timeout: 5000
+
+- tapOn:
+    id: "input_name"
+- inputText: "Maestro"
+
+# 키보드가 목록 하단을 가리므로 내리고 나서 저장/스크롤한다
+- hideKeyboard
+
+- tapOn:
+    id: "btn_save"
+
+# 새 기록은 목록 맨 끝에 추가되므로 스크롤해야 보인다
+- scrollUntilVisible:
+    element:
+      text: "Maestro - 7"
+    direction: DOWN

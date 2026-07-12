@@ -29,7 +29,7 @@ class MainActivity : ComponentActivity() {
                         .fillMaxSize()
                         .semantics { testTagsAsResourceId = true },
                 ) {
-                    CounterScreen()
+                    MaestroSampleApp()
                 }
             }
         }

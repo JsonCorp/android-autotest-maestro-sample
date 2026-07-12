@@ -1,0 +1,26 @@
+appId: com.example.maestrosample
+name: 비동기 로딩 — 스피너가 사라질 때까지 기다렸다가 목록을 확인하고 뒤로 돌아온다
+---
+- runFlow: common/launch_clean.yaml
+
+- tapOn:
+    id: "btn_history"
+
+# 진입 직후에는 로딩 스피너가 보인다
+- assertVisible:
+    id: "loading_indicator"
+
+# 로딩(2초)이 끝나면 목록이 나타난다 — 고정 sleep 대신 조건 대기
+- extendedWaitUntil:
+    visible:
+      id: "list_history"
+    timeout: 5000
+
+- assertNotVisible:
+    id: "loading_indicator"
+
+# 시스템 뒤로가기로 카운터 화면 복귀 (백스택 검증)
+- back
+
+- assertVisible:
+    id: "text_counter"
