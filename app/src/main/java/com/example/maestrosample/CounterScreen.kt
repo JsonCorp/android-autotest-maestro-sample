@@ -47,7 +47,7 @@ fun CounterScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        if (count >= MILESTONE) {
+        if (count > MILESTONE) {
             Text(
                 text = "🎉 $MILESTONE 달성!",
                 style = MaterialTheme.typography.bodyLarge,
