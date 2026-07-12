@@ -42,7 +42,7 @@ if (count > MILESTONE) {   // was: count >= MILESTONE
 
 이 버그를 별도 브랜치로 올리면, [3편](stage3-blog-post.md)에서 만든 워크플로우가 PR에서 알아서 에뮬레이터를 띄우고 테스트를 돌리다가 **빨간불**을 띄웁니다. (3편에서 `gradlew` 실행 권한 때문에 첫 CI가 실패했던 것처럼, 이번엔 일부러 만든 실패 실행을 라이브로 남겨둡니다. `main`에는 버그를 병합하지 않아 초록불을 유지합니다.)
 
-> 실패 실행(라이브): <!-- 버그 브랜치 push 후 실제 Actions run 링크로 교체 -->
+> 실패 실행(라이브): PR [#1](https://github.com/JsonCorp/android-autotest-maestro-sample/pull/1)을 열자 CI가 빨간불로 실패했습니다 → [Actions 실행 로그](https://github.com/JsonCorp/android-autotest-maestro-sample/actions/runs/29197126270). 그리고 그 PR에는 아래 6절에서 만드는 실패 자동 코멘트가 실제로 달렸습니다. `main`에는 이 버그를 병합하지 않아 초록불을 유지합니다.
 
 ## 3. 빨간불을 열어본다
 
@@ -181,6 +181,8 @@ Maestro는 실패할 때만 화면을 찍지만, **통과하든 실패하든 남
 
 8/8 Flows Passed in 1m 48s
 ```
+
+이 5편의 변경을 `main`에 올렸을 때도 CI가 그대로 초록불로 통과했습니다: [Actions 실행](https://github.com/JsonCorp/android-autotest-maestro-sample/actions/runs/29197041531). README 맨 위의 상태 배지도 이때 초록으로 바뀝니다.
 
 방금 우리가 겪은 게 자동화 테스트의 진짜 값어치입니다. **10에서만 안 뜨는 축하 메시지** 같은 버그는 수동 테스트로는 놓치기 쉽지만, 커밋을 올리는 순간 CI가 대신 눌러보고, 스크린샷까지 찍어서, PR에 코멘트로 알려줬습니다. 사람이 한 일은 `>`를 `>=`로 고친 것뿐입니다.
 

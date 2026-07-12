@@ -94,7 +94,7 @@
 
 **준비물**: 1편과 동일 (연결된 Android 단말 또는 에뮬레이터, adb, Maestro CLI) + 공개 GitHub 저장소
 
-**상태**: 작성 완료. `docs/stage5-blog-post.md`, `screenshots/stage5_3_debug_shot.png`, `.maestro/04·08`·`.github/workflows/maestro-test.yml`·`README.md` 참고. 로컬 8/8 통과(1m 48s, Maestro 2.6.1). 실패 브랜치 CI 라이브 링크는 push 후 원고·본 문서에 반영 예정.
+**상태**: 작성 완료. `docs/stage5-blog-post.md`, `screenshots/stage5_3_debug_shot.png`, `.maestro/04·08`·`.github/workflows/maestro-test.yml`·`README.md` 참고. 로컬 8/8 통과(1m 48s, Maestro 2.6.1). 실제 CI: main push [성공(초록)](https://github.com/JsonCorp/android-autotest-maestro-sample/actions/runs/29197041531), 버그 브랜치 PR [#1](https://github.com/JsonCorp/android-autotest-maestro-sample/pull/1)에서 [실패(빨강)](https://github.com/JsonCorp/android-autotest-maestro-sample/actions/runs/29197126270) + PR 자동 코멘트 게시 확인. `main`에는 버그 미병합(초록 유지).
 
 **진행 중 발견한 이슈**:
 - Maestro 2.6.1의 `maestro test`에는 CLI 레벨 재시도 플래그가 없음 → flaky 대응은 커맨드 레벨 조건 대기(`extendedWaitUntil`, `waitForAnimationToEnd`)로 정리
