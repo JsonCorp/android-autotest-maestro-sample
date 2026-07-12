@@ -2,7 +2,7 @@
 
 ## 목표
 
-안드로이드 개발을 처음 접하는 독자도 따라 할 수 있도록, Maestro를 이용한 UI 자동화 테스트를 "아주 쉽게" 설명하는 4부작 시리즈.
+안드로이드 개발을 처음 접하는 독자도 따라 할 수 있도록, Maestro를 이용한 UI 자동화 테스트를 "아주 쉽게" 설명하는 시리즈(현재 5편).
 샘플 저장소: `android-autotest-maestro-sample` (카운터 앱 2개 화면 + Maestro 플로우 8개 + GitHub Actions CI)
 
 ## 1편 — AI가 테스트 스크립트를 작성하고, 실행하고, 보고서까지 만든다 (CLI 자동화)
@@ -78,3 +78,25 @@
 
 **진행 중 발견한 이슈**:
 - 플로우 `name:`에 큰따옴표(`"`)를 넣었더니, Maestro가 `--debug-output` 저장 시 플로우 이름을 파일명에 그대로 사용하면서 Windows 파일명 금지 문자에 걸려 `FileNotFoundException`으로 러너 전체가 중단됨 (뒤 플로우들 실행 안 됨) → 플로우 이름에서 따옴표 제거로 해결. 1편(cp949 인코딩), 3편(실행 비트)에 이은 Windows 특유의 함정
+
+## 5편 — 테스트가 깨지는 날: 실패를 빠르게 찾고 팀에 알리기
+
+**핵심 메시지**: "초록불은 결과일 뿐이다. 자동화의 진짜 실력은 빨간불이 떴을 때 드러난다 — 실패를 빠르게 읽고, flaky를 줄이고, 팀에 알린다."
+
+**목차**
+1. 지금까진 초록불만 봤다 — CI의 목적은 초록이 아니라 '빨강을 빨리 알려주는 것'
+2. 일부러 빨간불을 만든다 — 앱에 off-by-one 버그(`count >= 10` → `> 10`)를 심어 별도 브랜치로 push → `04_milestone` 실패 → CI 빨간불 (main은 초록 유지)
+3. 빨간불 열어보기 — 실패 로그의 실패 스텝 + `--debug-output`(+`--flatten-debug-output`)이 실패할 때만 남기는 스크린샷으로 '기대 vs 실제' 확인
+4. 원하는 순간을 증거로 — `takeScreenshot`을 `reports/` 아래로 보내 CI 아티팩트에 보존(이름만 주면 CWD에 떨어져 CI에서 사라지는 함정)
+5. flaky 줄이기 — 고정 sleep 금지, `extendedWaitUntil`(4편 복습) + `waitForAnimationToEnd`
+6. 팀이 알게 하기 — README 상태 배지 + 실패 시 PR 자동 코멘트(`actions/github-script`, GITHUB_TOKEN만, 시크릿 불필요). Slack 웹훅은 확장 아이디어로만 언급
+7. 버그 고치고 다시 초록불 → 정리 표(실패 상황 → 대응 도구)
+
+**준비물**: 1편과 동일 (연결된 Android 단말 또는 에뮬레이터, adb, Maestro CLI) + 공개 GitHub 저장소
+
+**상태**: 작성 완료. `docs/stage5-blog-post.md`, `screenshots/stage5_3_debug_shot.png`, `.maestro/04·08`·`.github/workflows/maestro-test.yml`·`README.md` 참고. 로컬 8/8 통과(1m 48s, Maestro 2.6.1). 실패 브랜치 CI 라이브 링크는 push 후 원고·본 문서에 반영 예정.
+
+**진행 중 발견한 이슈**:
+- Maestro 2.6.1의 `maestro test`에는 CLI 레벨 재시도 플래그가 없음 → flaky 대응은 커맨드 레벨 조건 대기(`extendedWaitUntil`, `waitForAnimationToEnd`)로 정리
+- `--debug-output`은 **통과 시에는 스크린샷을 안 남기고 실패 시에만** 실패 지점 스크린샷을 남김(`screenshot-❌-…png`). 실패 재현 없이는 이 산출물을 볼 수 없음
+- `takeScreenshot`에 경로를 안 주면 저장소 루트(CWD)에 저장되어 CI 아티팩트(`reports/`)에 안 담김 → `reports/` 하위 경로로 지정해 해결

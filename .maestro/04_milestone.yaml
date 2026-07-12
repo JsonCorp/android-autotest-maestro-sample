@@ -19,7 +19,9 @@ name: 달성 메시지 — 10에 도달하면 축하 메시지가 뜨고, 초기
 - assertVisible:
     id: "text_milestone"
 
-- takeScreenshot: milestone_reached
+# 증거 캡처는 reports/ 아래에 남긴다 — 이래야 CI가 아티팩트로 함께 보존한다.
+# (경로를 안 주면 저장소 루트(CWD)에 떨어져 CI 아티팩트에 담기지 않는다.)
+- takeScreenshot: reports/milestone_reached
 
 - tapOn:
     id: "btn_reset"
