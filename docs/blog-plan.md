@@ -74,7 +74,7 @@
 
 **준비물**: 1편과 동일 (연결된 Android 단말 또는 에뮬레이터, adb, Maestro CLI)
 
-**상태**: 작성 완료. `docs/stage4-blog-post.md`, `screenshots/stage4_*.png`, `.maestro/06~08` + `common/` 참고. 로컬 8/8 통과 확인.
+**상태**: 작성 완료. `docs/stage4-blog-post.md`, `screenshots/stage4_*.png`, `.maestro/06~08` + `common/` 참고. 로컬 8/8 통과(1m 48s), CI도 워크플로우 수정 없이 8/8 통과(6m 12s): [Actions 실행](https://github.com/JsonCorp/android-autotest-maestro-sample/actions/runs/29188019490)
 
 **진행 중 발견한 이슈**:
 - 플로우 `name:`에 큰따옴표(`"`)를 넣었더니, Maestro가 `--debug-output` 저장 시 플로우 이름을 파일명에 그대로 사용하면서 Windows 파일명 금지 문자에 걸려 `FileNotFoundException`으로 러너 전체가 중단됨 (뒤 플로우들 실행 안 됨) → 플로우 이름에서 따옴표 제거로 해결. 1편(cp949 인코딩), 3편(실행 비트)에 이은 Windows 특유의 함정
